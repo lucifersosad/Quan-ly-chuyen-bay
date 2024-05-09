@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{387B7AB8-D0F8-4357-B033-3C33AC3913D5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>QuanLyChuyenBay</RootNamespace>
+    <AssemblyName>QuanLyChuyenBay</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DBConnection.cs" />
+    <Compile Include="FCaLamViec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCaLamViec.Designer.cs">
+      <DependentUpon>FCaLamViec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FChonDichVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FChonDichVu.Designer.cs">
+      <DependentUpon>FChonDichVu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FChonMayBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FChonMayBay.Designer.cs">
+      <DependentUpon>FChonMayBay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDangKy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDangKy.Designer.cs">
+      <DependentUpon>FDangKy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDoiHuyVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDoiHuyVe.Designer.cs">
+      <DependentUpon>FDoiHuyVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDoiVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDoiVe.Designer.cs">
+      <DependentUpon>FDoiVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FLichSuDatVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLichSuDatVe.Designer.cs">
+      <DependentUpon>FLichSuDatVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FLichSuLamViec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FLichSuLamViec.Designer.cs">
+      <DependentUpon>FLichSuLamViec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNhanVien.Designer.cs">
+      <DependentUpon>FNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNhanVienCapCao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNhanVienCapCao.Designer.cs">
+      <DependentUpon>FNhanVienCapCao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNhapChuyenBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNhapChuyenBay.Designer.cs">
+      <DependentUpon>FNhapChuyenBay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNhapPhanCong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNhapPhanCong.Designer.cs">
+      <DependentUpon>FNhapPhanCong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FSoDuTaiKhoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FSoDuTaiKhoan.Designer.cs">
+      <DependentUpon>FSoDuTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FThemDanhGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FThemDanhGia.Designer.cs">
+      <DependentUpon>FThemDanhGia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FThemNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FThemNhanVien.Designer.cs">
+      <DependentUpon>FThemNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FThemTaiKhoanNH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FThemTaiKhoanNH.Designer.cs">
+      <DependentUpon>FThemTaiKhoanNH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FThongKeMayBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FThongKeMayBay.Designer.cs">
+      <DependentUpon>FThongKeMayBay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FThongTinVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FThongTinVe.Designer.cs">
+      <DependentUpon>FThongTinVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FVe.Designer.cs">
+      <DependentUpon>FVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FXemPhieuChi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FXemPhieuChi.Designer.cs">
+      <DependentUpon>FXemPhieuChi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FXemThongTinKH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FXemThongTinKH.Designer.cs">
+      <DependentUpon>FXemThongTinKH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDangNhap.Designer.cs">
+      <DependentUpon>FDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FKhachHang.Designer.cs">
+      <DependentUpon>FKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FTimKiemChuyenBay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FTimKiemChuyenBay.Designer.cs">
+      <DependentUpon>FTimKiemChuyenBay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FXemTienLuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FXemTienLuong.Designer.cs">
+      <DependentUpon>FXemTienLuong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FXemTienVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FXemTienVe.Designer.cs">
+      <DependentUpon>FXemTienVe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+    <Compile Include="MessageBoxManager.cs" />
+    <Compile Include="ModalBankAccount.cs" />
+    <Compile Include="ModelDatVe.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FCaLamViec.resx">
+      <DependentUpon>FCaLamViec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FChonDichVu.resx">
+      <DependentUpon>FChonDichVu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FChonMayBay.resx">
+      <DependentUpon>FChonMayBay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDangKy.resx">
+      <DependentUpon>FDangKy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDangNhap.resx">
+      <DependentUpon>FDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDoiHuyVe.resx">
+      <DependentUpon>FDoiHuyVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDoiVe.resx">
+      <DependentUpon>FDoiVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FLichSuDatVe.resx">
+      <DependentUpon>FLichSuDatVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FLichSuLamViec.resx">
+      <DependentUpon>FLichSuLamViec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNhanVien.resx">
+      <DependentUpon>FNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNhanVienCapCao.resx">
+      <DependentUpon>FNhanVienCapCao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNhapChuyenBay.resx">
+      <DependentUpon>FNhapChuyenBay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNhapPhanCong.resx">
+      <DependentUpon>FNhapPhanCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FSoDuTaiKhoan.resx">
+      <DependentUpon>FSoDuTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FThemDanhGia.resx">
+      <DependentUpon>FThemDanhGia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FThemNhanVien.resx">
+      <DependentUpon>FThemNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FThongKeMayBay.resx">
+      <DependentUpon>FThongKeMayBay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FThongTinVe.resx">
+      <DependentUpon>FThongTinVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FVe.resx">
+      <DependentUpon>FVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FXemPhieuChi.resx">
+      <DependentUpon>FXemPhieuChi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FXemThongTinKH.resx">
+      <DependentUpon>FXemThongTinKH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FKhachHang.resx">
+      <DependentUpon>FKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FTimKiemChuyenBay.resx">
+      <DependentUpon>FTimKiemChuyenBay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FXemTienLuong.resx">
+      <DependentUpon>FXemTienLuong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FXemTienVe.resx">
+      <DependentUpon>FXemTienVe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
