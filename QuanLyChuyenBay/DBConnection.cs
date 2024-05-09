@@ -15,9 +15,9 @@ namespace QuanLyChuyenBay
     public class DBConnection
     {
 
-        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-SMH1K5T\\SOROW;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
+        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-GHTIJPNK;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
 
-        SqlConnection connAd = new SqlConnection("Data Source=DESKTOP-SMH1K5T\\SOROW;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
+        SqlConnection connAd = new SqlConnection("Data Source=LAPTOP-GHTIJPNK;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
 
         //Ham
         public DataTable TimChuyenBay(string noidi, string noiden, DateTime thoigian)
@@ -766,8 +766,61 @@ namespace QuanLyChuyenBay
             }
             finally { conn.Close(); }
         }
-
-
+        public DataTable TaoBang(string sql)
+        {
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+            da.Fill(dt);
+            return dt;
+        }
+        public void ThemPhieuChi(string MaPhieuChi, string MaMayBay, string TenPhi, string NgayXuatPhieu, string SoTienChi)
+        {
+            try
+            {
+                conn.Open();
+                string sqlStr = String.Format("insert into PhieuChi values (N'{0}',N'{1}',N'{2}','{3}',{4})",MaPhieuChi,MaMayBay,TenPhi,NgayXuatPhieu,SoTienChi);
+                SqlCommand lenh = new SqlCommand(sqlStr, conn);
+                lenh.ExecuteNonQuery();
+                MessageBox.Show("Thêm phiếu chi thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally { conn.Close(); }
+        }
+        public void SuaPhieuChi(string MaPhieuChi, string MaMayBay, string TenPhi, string NgayXuatPhieu, string SoTienChi)
+        {
+            try
+            {
+                conn.Open();
+                string sqlStr = String.Format("update PhieuChi set MaMB=N'{0}',TenPhi=N'{1}',NgayXuatPhieu='{2}',SoTienChi={3} where MaPhieuChi=N'{4}'", MaMayBay, TenPhi, NgayXuatPhieu, SoTienChi, MaPhieuChi);
+                SqlCommand lenh = new SqlCommand(sqlStr, conn);
+                lenh.ExecuteNonQuery();
+                MessageBox.Show("Sửa phiếu chi thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally { conn.Close(); }
+        }
+        public void XoaPhieuChi(string MaPhieuChi)
+        {
+            try
+            {
+                conn.Open();
+                string sqlStr = String.Format("delete from PhieuChi where MaPhieuChi=N'{0}'", MaPhieuChi);
+                SqlCommand lenh = new SqlCommand(sqlStr, conn);
+                lenh.ExecuteNonQuery();
+                MessageBox.Show("Xóa phiếu chi thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally { conn.Close(); }
+        }
     }
     
 }
