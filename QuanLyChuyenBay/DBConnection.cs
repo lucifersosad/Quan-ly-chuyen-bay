@@ -587,6 +587,23 @@ namespace QuanLyChuyenBay
             }
             finally { conn.Close(); }
         }
+
+        public void themChuyenBay(String noiDi, String noiDen, String startTime, String endTime, String maMB)
+        {
+            try
+            {
+                conn.Open();
+                string sqlStr = String.Format("EXEC ThemThamGiaChuyenBay N'{0}', N'{1}', '{2}', '{3}', null, N'Chưa hoàn thành', '{4}'", noiDi, noiDen, startTime, endTime, maMB);
+                SqlCommand lenh = new SqlCommand(sqlStr, conn);
+                lenh.ExecuteNonQuery();
+                MessageBox.Show("Thêm chuyến bay thành công", "Thông báo", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally { conn.Close(); }
+        }
         public DataTable InChuyenBay(string ngay)
         {
             try
