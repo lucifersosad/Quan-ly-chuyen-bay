@@ -55,14 +55,41 @@ namespace QuanLyChuyenBay
             try
             {
                 DBConnection conn = new DBConnection();
-                conn.AddPhanCong(txtMaChuyenBay.Text, txtMaNhanVien.Text);
-                MessageBox.Show("Thêm thành công!");
+                conn.AddPhanCong(cboMaCB.Text, cboMaNV.Text);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private void FNhapPhanCong_Load(object sender, EventArgs e)
+        {
+            loadChuyenBay();
+            loadNhanVien();
+        }
+
+        private void loadChuyenBay()
+        {
+            DBConnection conn = new DBConnection();
+            DataSet ds = conn.XemChuyenBay();
+            DataTable dt = ds.Tables[0];
+
+            cboMaCB.DataSource = dt;
+            cboMaCB.DisplayMember = "MaChuyenBay";
+            cboMaCB.ValueMember = "MaChuyenBay";
+        }
+
+        private void loadNhanVien()
+        {
+            DBConnection conn = new DBConnection();
+            DataSet ds = conn.XemNhanVien();
+            DataTable dt = ds.Tables[0];
+
+            cboMaNV.DataSource = dt;
+            cboMaNV.DisplayMember = "MaNV";
+            cboMaNV.ValueMember = "MaNV";
         }
     }
 }

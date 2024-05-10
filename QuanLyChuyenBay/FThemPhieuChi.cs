@@ -67,6 +67,8 @@ namespace QuanLyChuyenBay
                 txt_TenPhi.ResetText();
                 txt_SoTienChi.ResetText();
                 LoadDuLieu();
+                txt_MaPhieuChi.ReadOnly = false;
+                btn_ThemPC.Enabled = true;
             }
         }
 
@@ -83,12 +85,14 @@ namespace QuanLyChuyenBay
                 txt_MaMayBay.ResetText();
                 txt_TenPhi.ResetText();
                 txt_SoTienChi.ResetText();
+                txt_MaPhieuChi.ReadOnly = false;
+                btn_ThemPC.Enabled = true;
             }
             else
             {
                 MessageBox.Show("Bạn chưa chọn dữ liệu để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            LoadDuLieu();
+            LoadDuLieu();  
         }
 
         private void btn_ThoatPC_Click(object sender, EventArgs e)
@@ -118,6 +122,8 @@ namespace QuanLyChuyenBay
             txt_TenPhi.Text = hang["TenPhi"].ToString();
             dtp_NgayXuatPhieu.Text = hang["NgayXuatPhieu"].ToString();
             txt_SoTienChi.Text = hang["SoTienChi"].ToString();
+            txt_MaPhieuChi.ReadOnly = true;
+            btn_ThemPC.Enabled = false;
 
         }
         private void ChiNhapSo_KeyPress(object sender, KeyPressEventArgs e)

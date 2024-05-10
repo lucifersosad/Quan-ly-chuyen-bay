@@ -48,6 +48,7 @@
             // 
             // cbxDiem
             // 
+            this.cbxDiem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxDiem.FormattingEnabled = true;
             this.cbxDiem.Items.AddRange(new object[] {
             "0",

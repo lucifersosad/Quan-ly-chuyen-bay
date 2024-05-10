@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -224,7 +225,7 @@ namespace QuanLyChuyenBay
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Quá trình đặt vé đã xảy lỗi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             return ma;
         }
@@ -241,7 +242,7 @@ namespace QuanLyChuyenBay
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                /*MessageBox.Show(ex.Message);*/
             }
             finally { conn.Close(); }
         }
@@ -534,6 +535,7 @@ namespace QuanLyChuyenBay
                 string sqlStr = String.Format("insert into PhanCong values('{0}','{1}',N'Đang chờ hoàn thành')", machuyenbay, manv);
                 SqlCommand lenh2 = new SqlCommand(sqlStr, conn);
                 lenh2.ExecuteNonQuery();
+                MessageBox.Show("Thêm thành công!");
 
             }
             catch (Exception ex)
@@ -659,7 +661,7 @@ namespace QuanLyChuyenBay
             try
             {
                 conn.Open();
-                string sqlStr = String.Format("select * from XuLyVe");
+                string sqlStr = String.Format(" SELECT MaYC, MaVe, LoaiYC, ThoiGian, GhiChu\r\nFROM (\r\n    SELECT *,\r\n           ROW_NUMBER() OVER (PARTITION BY MaVe ORDER BY ThoiGian DESC) AS RowNum\r\n    FROM XuLyVe\r\n) AS Subquery\r\nWHERE RowNum = 1\r\nORDER BY ThoiGian DESC;");
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -687,48 +689,7 @@ namespace QuanLyChuyenBay
             }
             finally { conn.Close(); }
         }
-        public void DangKy(string HoTen, string DiaChi, string SDT, string GioiTinh, string NgaySinh, string CCCD, string tennguoidung, string matkhau)
-        {
-            try
-            {
-                connAd.Open();
-                string sqlStr = String.Format("declare @ma nvarchar(100),@stt int\r\nselect @stt=max(convert(int,SUBSTRING(MaKH,3,9999))) \r\nfrom KhachHang \r\nset @stt=@stt+1\r\nSET @ma = 'KH'+ CONVERT(NVARCHAR(100), @stt) select @ma");
-                SqlCommand lenh = new SqlCommand(sqlStr, connAd);
-                string ma = (string)lenh.ExecuteScalar() as string;
-                if (ma == null)
-                    ma = "KH01";
-                string sqlInsert = String.Format("exec ThemKhachHang '{0}',N'{1}','{2}',N'{3}',N'{4}',N'{5}',N'{6}'", ma, HoTen, NgaySinh, SDT, DiaChi, GioiTinh, CCCD);
-                SqlCommand lenh2 = new SqlCommand(sqlInsert, connAd);
-                lenh2.ExecuteNonQuery();
-                //---------------------------------------//
-                string MaTaiKhoan = ma.Substring(2);
-                MaTaiKhoan = "TKKH" + MaTaiKhoan;
-
-                string sqlStr1 = String.Format("insert into TaiKhoan values('{0}','{1}',N'Khách hàng','{2}',{3},'{4}')", tennguoidung, matkhau, MaTaiKhoan, 0, ma);
-                SqlCommand lenh1 = new SqlCommand(sqlStr1, connAd);
-                lenh1.ExecuteNonQuery();
-
-                string sqlStr3 = String.Format("exec PhanQuyen '{0}','{1}',N'Khách hàng'", tennguoidung, matkhau);
-                SqlCommand lenh3 = new SqlCommand(sqlStr3, connAd);
-                lenh3.ExecuteNonQuery();
-                //--------------------------------------//
-
-                string sqlTheKH = String.Format("declare @ma nvarchar(100),@stt int select @stt=max(convert(int,SUBSTRING(MaThe,4,9999))) from TheKhachHang set @stt=@stt+1 SET @ma = 'THE'+ CONVERT(NVARCHAR(100), @stt) select @ma");
-                SqlCommand lenh4 = new SqlCommand(sqlTheKH, connAd);
-                string mathe = (string)lenh4.ExecuteScalar() as string;
-                if (mathe == null)
-                    ma = "THE01";
-
-                string sqlThemThe = String.Format("insert into TheKhachHang values('{0}',N'Đồng',0,'{1}')", mathe, ma);
-                SqlCommand lenh5 = new SqlCommand(sqlThemThe, connAd);
-                lenh5.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally { connAd.Close(); }
-        }
+        
         public void ThemNhanVien(string tk, string pass, string tennv, string gioitinh, string ngaysinh, string sdt, string cccd, string diachi, string loainv, string luong)
         {
             try
@@ -747,12 +708,120 @@ namespace QuanLyChuyenBay
             finally { conn.Close(); }
         }
 
+        public int DangKy(string HoTen, string DiaChi, string SDT, string GioiTinh, string NgaySinh, string CCCD, string tennguoidung, string matkhau, string xacnhanmk)
+        {
+            int flag = 0;
+            try
+            {
+                if (CCCD.All(char.IsDigit) == false || string.IsNullOrEmpty(CCCD) == true || CCCD.Length != 12)
+                {
+                    MessageBox.Show("Vui lòng nhập đúng định dạng căn cước", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (SDT.All(char.IsDigit) == false || string.IsNullOrEmpty(SDT) == true)
+                {
+                    MessageBox.Show("Vui lòng nhập số cho mục số điện thoại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (Regex.IsMatch(matkhau, @"^(?=.*[A-Z]).{8,}$") == false)
+                {
+                    MessageBox.Show("Mật khẩu chứa ít nhất 8 ký tự, ít nhất 1 ký tự hoa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (matkhau.Equals(xacnhanmk) == false)
+                {
+                    MessageBox.Show("Xác nhận mật khẩu chưa khớp", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    connAd.Open();
+                    string sqlStr = String.Format("declare @ma nvarchar(100),@stt int\r\nselect @stt=max(convert(int,SUBSTRING(MaKH,3,9999))) \r\nfrom KhachHang \r\nset @stt=@stt+1\r\nSET @ma = 'KH'+ CONVERT(NVARCHAR(100), @stt) select @ma");
+                    SqlCommand lenh = new SqlCommand(sqlStr, connAd);
+                    string ma = (string)lenh.ExecuteScalar() as string;
+                    if (ma == null)
+                        ma = "KH01";
+                    string sqlInsert = String.Format("exec ThemKhachHang '{0}',N'{1}','{2}',N'{3}',N'{4}',N'{5}',N'{6}'", ma, HoTen, NgaySinh, SDT, DiaChi, GioiTinh, CCCD);
+                    SqlCommand lenh2 = new SqlCommand(sqlInsert, connAd);
+                    lenh2.ExecuteNonQuery();
+                    //---------------------------------------//
+                    string MaTaiKhoan = ma.Substring(2);
+                    MaTaiKhoan = "TKKH" + MaTaiKhoan;
+
+                    string sqlStr1 = String.Format("insert into TaiKhoan values('{0}','{1}',N'Khách hàng','{2}',{3},'{4}')", tennguoidung, matkhau, MaTaiKhoan, 0, ma);
+                    SqlCommand lenh1 = new SqlCommand(sqlStr1, connAd);
+                    lenh1.ExecuteNonQuery();
+
+                    string sqlStr3 = String.Format("exec PhanQuyen '{0}','{1}',N'Khách hàng'", tennguoidung, matkhau);
+                    SqlCommand lenh3 = new SqlCommand(sqlStr3, connAd);
+                    lenh3.ExecuteNonQuery();
+                    //--------------------------------------//
+
+                    string sqlTheKH = String.Format("declare @ma nvarchar(100),@stt int select @stt=max(convert(int,SUBSTRING(MaThe,4,9999))) from TheKhachHang set @stt=@stt+1 SET @ma = 'THE'+ CONVERT(NVARCHAR(100), @stt) select @ma");
+                    SqlCommand lenh4 = new SqlCommand(sqlTheKH, connAd);
+                    string mathe = (string)lenh4.ExecuteScalar() as string;
+                    if (mathe == null)
+                        ma = "THE01";
+
+                    string sqlThemThe = String.Format("insert into TheKhachHang values('{0}',N'Đồng',0,'{1}')", mathe, ma);
+                    SqlCommand lenh5 = new SqlCommand(sqlThemThe, connAd);
+                    lenh5.ExecuteNonQuery();
+
+                    MessageBox.Show("Đăng ký thành công");
+                    flag = 1;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đăng ký thất bại");
+                MessageBox.Show(ex.Message);
+
+            }
+            finally { connAd.Close(); }
+            return flag;
+        }
+
         public DataSet XemTaiKhoanNganHang(String MaKH)
         {
             try
             {
                 conn.Open();
                 string sqlStr = String.Format("select * from TaiKhoanNH where MaKH = '{0}'", MaKH);
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
+                DataSet dt = new DataSet();
+                adapter.Fill(dt);
+                return dt;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally { conn.Close(); }
+        }
+        public DataSet XemChuyenBay()
+        {
+            try
+            {
+                conn.Open();
+                string sqlStr = String.Format("select * from ChuyenBay");
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
+                DataSet dt = new DataSet();
+                adapter.Fill(dt);
+                return dt;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally { conn.Close(); }
+        }
+        public DataSet XemNhanVien()
+        {
+            try
+            {
+                conn.Open();
+                string sqlStr = String.Format("select * from NhanVien");
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
                 DataSet dt = new DataSet();
                 adapter.Fill(dt);
