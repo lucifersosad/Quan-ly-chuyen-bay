@@ -22,12 +22,12 @@ namespace QuanLyChuyenBay
             FChonMayBay chonMayBay = new FChonMayBay();
             chonMayBay.ShowDialog();
             this.MaMB = chonMayBay.MaMB;
-            FNhapChuyenBay_Load(sender, e);
+            txtMaMB.Text = MaMB;
         }
 
         private void FNhapChuyenBay_Load(object sender, EventArgs e)
         {
-            txtMaMB.Text = MaMB;
+            loadChuyenBay(DateTime.Now.ToString("yyyy/MM/dd"));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,6 +44,7 @@ namespace QuanLyChuyenBay
                     String startTime = NgayKhoiHanh.Value.ToString("yyyy/MM/dd HH:mm:ss");
                     String endTime = NgayDenDuKien.Value.ToString("yyyy/MM/dd HH:mm:ss");
                     conn.themChuyenBay(txtNoiDi.Text, txtNoiDen.Text, startTime, endTime, txtMaMB.Text);
+                    loadChuyenBay(NgayKhoiHanh.Value.ToString("yyyy/MM/dd"));
                 }
             }
             catch (Exception ex)
@@ -53,24 +54,10 @@ namespace QuanLyChuyenBay
         }
         private void btnLoc_Click(object sender, EventArgs e)
         {
-            DBConnection conn = new DBConnection();
-            dtgXemChuyenBay.DataSource = conn.InChuyenBay(NgayKhoiHanh.Value.ToString("yyyy/MM/dd"));
-            dtgXemChuyenBay.Columns[0].Width = 60;
-            dtgXemChuyenBay.Columns[0].HeaderText = "Mã chuyến";
-            dtgXemChuyenBay.Columns[1].Width = 70;
-            dtgXemChuyenBay.Columns[1].HeaderText = "Nơi đi";
-            dtgXemChuyenBay.Columns[2].Width = 75;
-            dtgXemChuyenBay.Columns[2].HeaderText = "Nơi đến";
-            dtgXemChuyenBay.Columns[3].Width = 120;
-            dtgXemChuyenBay.Columns[3].HeaderText = "Thời gian khởi hành";
-            dtgXemChuyenBay.Columns[4].Width = 120;
-            dtgXemChuyenBay.Columns[4].HeaderText = "Thời gian đến dự kiến";
-            dtgXemChuyenBay.Columns[5].Visible = false;
-            dtgXemChuyenBay.Columns[6].Width = 90;
-            dtgXemChuyenBay.Columns[6].HeaderText = "Trạng thái";
+            loadChuyenBay(txtNgay.Value.ToString("yyyy/MM/dd"));  
         }
 
-        public Boolean checkAddFlight()
+        private Boolean checkAddFlight()
         {
             if (NgayKhoiHanh.Value <= DateTime.Now)
             {
@@ -94,6 +81,42 @@ namespace QuanLyChuyenBay
             }
 
             return true;
+        }
+
+        private void loadChuyenBay(String ngay)
+        {
+            try
+            {
+                DBConnection conn = new DBConnection();
+                DataTable flightDt = conn.InChuyenBay(ngay);
+                loadData(flightDt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void loadData(DataTable dt)
+        {
+            dtgXemChuyenBay.DataSource = dt;
+            dtgXemChuyenBay.Columns[0].Width = 60;
+            dtgXemChuyenBay.Columns[0].HeaderText = "Mã chuyến";
+            dtgXemChuyenBay.Columns[1].Width = 60;
+            dtgXemChuyenBay.Columns[1].HeaderText = "Số hiệu";
+            dtgXemChuyenBay.Columns[2].Visible = false;
+            dtgXemChuyenBay.Columns[3].HeaderText = "Nơi đi";
+            dtgXemChuyenBay.Columns[3].Width = 75;
+            dtgXemChuyenBay.Columns[4].HeaderText = "Nơi đến";
+            dtgXemChuyenBay.Columns[4].Width = 75;
+            dtgXemChuyenBay.Columns[5].Width = 120;
+            dtgXemChuyenBay.Columns[5].HeaderText = "Thời gian khởi hành";
+            dtgXemChuyenBay.Columns[6].Width = 120;
+            dtgXemChuyenBay.Columns[6].HeaderText = "Thời gian đến dự kiến";
+            dtgXemChuyenBay.Columns[7].Visible = false;
+            dtgXemChuyenBay.Columns[8].HeaderText = "Trạng thái";
+            dtgXemChuyenBay.Columns[8].Width = 90;
         }
     }
 }
