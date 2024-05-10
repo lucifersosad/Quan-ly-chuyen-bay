@@ -23,28 +23,40 @@ namespace QuanLyChuyenBay
         private void btnLoc_Click(object sender, EventArgs e)
         {
             
-            DBConnection conn = new DBConnection();
-            int giatien = Int32.Parse(txtGiaTien.Text);
-            dtgDichVu.DataSource = conn.TimDichVu(cboLoaiDV.Text,giatien);
-            if(dtgDichVu.Columns.Count==3)
+            try
             {
-                DataGridViewCheckBoxColumn column = new DataGridViewCheckBoxColumn();
-                column.HeaderText = "Chọn";
-                column.Name = "Chon";
-                //dtgDichVu.Columns.Add(column);
-                dtgDichVu.Columns.Insert(3, column);
-                dtgDichVu.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                DBConnection conn = new DBConnection();
+                if (txtGiaTien.Text.Length > 0 ) { }
+                int giatien = Int32.Parse(txtGiaTien.Text);
+                if (giatien <= 0 ) 
+                {
+                    MessageBox.Show("Số tiền phải lớn hơn 0", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                dtgDichVu.DataSource = conn.TimDichVu(cboLoaiDV.Text, giatien);
+                if (dtgDichVu.Columns.Count == 3)
+                {
+                    DataGridViewCheckBoxColumn column = new DataGridViewCheckBoxColumn();
+                    column.HeaderText = "Chọn";
+                    column.Name = "Chon";
+                    //dtgDichVu.Columns.Add(column);
+                    dtgDichVu.Columns.Insert(3, column);
+                    dtgDichVu.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            }
-            else
+                }
+                else
+                {
+                    dtgDichVu.Columns.Remove("Chon");
+                    DataGridViewCheckBoxColumn column = new DataGridViewCheckBoxColumn();
+                    column.HeaderText = "Chọn";
+                    column.Name = "Chon";
+                    //dtgDichVu.Columns.Add(column);
+                    dtgDichVu.Columns.Insert(3, column);
+                    dtgDichVu.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+            } catch(Exception ex)
             {
-                dtgDichVu.Columns.Remove("Chon");
-                DataGridViewCheckBoxColumn column = new DataGridViewCheckBoxColumn();
-                column.HeaderText = "Chọn";
-                column.Name = "Chon";
-                //dtgDichVu.Columns.Add(column);
-                dtgDichVu.Columns.Insert(3, column);
-                dtgDichVu.Columns[3].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                MessageBox.Show("Vui lòng nhập đúng định dạng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -105,14 +117,26 @@ namespace QuanLyChuyenBay
         private void txtDatVe_Click(object sender, EventArgs e)
         {
             DatVe.SetmaDV(maDV);
-            DBConnection conn = new DBConnection();
-            string mave=conn.ThemVeVaDichVu(DatVe);
-            int sokg=Int32.Parse(txtkg.Text);
-            conn.ThemHanhLy(mave, sokg);
-            FVe InRaVe = new FVe(mave);
-            this.Hide();
-            InRaVe.ShowDialog();
-            this.Close();
+            try
+            {
+                DBConnection conn = new DBConnection();
+                int sokg = Int32.Parse(txtkg.Text);
+                if (sokg < 0 ) 
+                {
+                    MessageBox.Show("Khối lượng hành lý không được âm", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                string mave = conn.ThemVeVaDichVu(DatVe);
+                conn.ThemHanhLy(mave, sokg);
+                FVe InRaVe = new FVe(mave);
+                this.Hide();
+                InRaVe.ShowDialog();
+                this.Close();
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show("Vui lòng nhập đúng định dạng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
     }

@@ -22,11 +22,9 @@ namespace QuanLyChuyenBay
         string MaCB;
         private void button1_Click(object sender, EventArgs e)
         {
-          
             DBConnection conn = new DBConnection();
             conn.ThemDanhGia(MaKH, MaCB, cbxDiem.Text, txtNhanXet.Text);
-            this.Close();
-
+            this.Close();            
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,38 +52,71 @@ namespace QuanLyChuyenBay
             string loaive= dtgLichSuDatVe.Rows[row].Cells[2].Value.ToString();
             string MaVe = dtgLichSuDatVe.Rows[row].Cells[0].Value.ToString();
             string MaCB = dtgLichSuDatVe.Rows[row].Cells[9].Value.ToString();
+            String gioBay = dtgLichSuDatVe.Rows[row].Cells[7].Value.ToString();
             if(loaive=="hạng phổ thông")
-                MessageBox.Show("Loại vé của bạn không thể đổi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Loại vé của bạn không thể đổi, không thể đánh giá!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
             {
-    
-                MessageBoxManager.Yes = "Đổi vé";
-                MessageBoxManager.No = "Hủy vẻ";
-                MessageBoxManager.Cancel = "Đánh giá";
-                MessageBoxManager.Register();
-                DialogResult dialogResult = MessageBox.Show("Xin lựa chọn yêu cầu của bạn!", "Thông báo", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                if(dialogResult == DialogResult.Yes)
+                DateTime dateTime;
+                if (DateTime.TryParse(gioBay, out dateTime))
                 {
-                    FDoiVe doive = new FDoiVe(MaVe, MaCB);
-                    this.Hide();
-                    doive.ShowDialog();
-                    this.Close();
-                }
-                else if(dialogResult == DialogResult.No)
-                {
-                    DBConnection conn = new DBConnection();
-                    conn.ThemYeuCauXoaVe(MaVe);
-                    MessageBox.Show("Đã gửi yêu cầu hủy vé!");
-                    this.Close();
+                    DateTime now = DateTime.Now;
+                    int result = DateTime.Compare(dateTime, now);
+
+                    if (result <= 0)
+                    {
+                        MessageBoxManager.Yes = "Đánh giá";
+                        MessageBoxManager.No = "Hủy";
+                        MessageBoxManager.Register();
+                        DialogResult dialogResult = MessageBox.Show("Bạn có nhu cầu đánh giá chuyến bay không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            FThemDanhGia thongTinKH = new FThemDanhGia(manguoidi, MaCB);
+                            this.Hide();
+                            thongTinKH.ShowDialog();
+                            this.Close();
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            this.Close();
+                        }
+                        MessageBoxManager.Unregister();
+
+                        
+                    }
+                    else
+                    {
+                        MessageBoxManager.Yes = "Đổi vé";
+                        MessageBoxManager.No = "Hủy vé";
+                        MessageBoxManager.Cancel = "Hủy";
+                        MessageBoxManager.Register();
+                        DialogResult dialogResult = MessageBox.Show("Xin lựa chọn yêu cầu của bạn!", "Thông báo", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            FDoiVe doive = new FDoiVe(MaVe, MaCB);
+                            this.Hide();
+                            doive.ShowDialog();
+                            this.Close();
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            DBConnection conn = new DBConnection();
+                            conn.ThemYeuCauXoaVe(MaVe);
+                            MessageBox.Show("Đã gửi yêu cầu hủy vé!");
+                            this.Close();
+                        }
+                        else
+                        {
+                            this.Close();
+                        }
+                        MessageBoxManager.Unregister();
+                    }
                 }
                 else
                 {
-                    FThemDanhGia thongTinKH = new FThemDanhGia(manguoidi,MaCB);
-                    this.Hide();
-                    thongTinKH.ShowDialog();
-                    this.Close();
+                    MessageBox.Show("Giờ không hợp lệ");
+                    return;
                 }
-                MessageBoxManager.Unregister();
             }
         }
     }

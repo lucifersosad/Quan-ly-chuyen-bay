@@ -35,6 +35,11 @@ namespace QuanLyChuyenBay
                 {
                     DBConnection conn = new DBConnection();
                     int tien = Int32.Parse(txtSoTienNap.Text);
+                    if (tien <= 0)
+                    {
+                        MessageBox.Show("Số tiền nạp phải lớn hơn 0", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
                     conn.NapTien(MaKH, tien);
                     MessageBox.Show("Nạp tiền thành công!");
                     int sodu = conn.HienThiSoDu(MaKH);
