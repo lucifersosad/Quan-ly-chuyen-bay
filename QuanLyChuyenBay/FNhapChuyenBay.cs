@@ -35,9 +35,18 @@ namespace QuanLyChuyenBay
             try
             {
                 DBConnection conn = new DBConnection();
-                conn.AddChuyenBay(txtNoiDi.Text, txtNoiDen.Text, NgayKhoiHanh.Value.ToString("yyyy/MM/dd hh:mm:ss"), NgayDenDuKien.Value.ToString("yyyy/MM/dd hh:mm:ss"), txtMaMB.Text);
+                if (!checkAddFlight())
+                {
+                    return;
+                }
+                else
+                {
+                    String startTime = NgayKhoiHanh.Value.ToString("yyyy/MM/dd HH:mm:ss");
+                    String endTime = NgayDenDuKien.Value.ToString("yyyy/MM/dd HH:mm:ss");
+                    conn.themChuyenBay(txtNoiDi.Text, txtNoiDen.Text, startTime, endTime, txtMaMB.Text);
+                }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -59,6 +68,32 @@ namespace QuanLyChuyenBay
             dtgXemChuyenBay.Columns[5].Visible = false;
             dtgXemChuyenBay.Columns[6].Width = 90;
             dtgXemChuyenBay.Columns[6].HeaderText = "Trạng thái";
+        }
+
+        public Boolean checkAddFlight()
+        {
+            if (NgayKhoiHanh.Value <= DateTime.Now)
+            {
+                MessageBox.Show("Ngày khởi hành phải lớn hơn thời điểm hiện tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (NgayDenDuKien.Value <= NgayKhoiHanh.Value)
+            {
+                MessageBox.Show("Thời gian đến dự kiến phải lớn hơn thời gian khởi hành", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtNoiDi.Text) || string.IsNullOrEmpty(txtNoiDen.Text) || string.IsNullOrEmpty(txtMaMB.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtNoiDi.Text == txtNoiDen.Text)
+            {
+                MessageBox.Show("Nơi đi và nơi đến phải khác nhau", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
     }
 }

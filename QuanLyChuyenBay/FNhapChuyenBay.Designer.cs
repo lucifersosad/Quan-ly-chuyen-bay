@@ -165,6 +165,7 @@
             // 
             // txtNoiDi
             // 
+            this.txtNoiDi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.txtNoiDi.FormattingEnabled = true;
             this.txtNoiDi.Items.AddRange(new object[] {
             "Hà Nội",
@@ -192,6 +193,7 @@
             // 
             // txtNoiDen
             // 
+            this.txtNoiDen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.txtNoiDen.FormattingEnabled = true;
             this.txtNoiDen.Items.AddRange(new object[] {
             "Hà Nội",
@@ -282,6 +284,7 @@
             // 
             // txtMaMB
             // 
+            this.txtMaMB.Enabled = false;
             this.txtMaMB.Location = new System.Drawing.Point(309, 81);
             this.txtMaMB.Name = "txtMaMB";
             this.txtMaMB.Size = new System.Drawing.Size(79, 26);
