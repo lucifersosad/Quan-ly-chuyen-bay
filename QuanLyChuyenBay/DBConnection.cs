@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,9 @@ namespace QuanLyChuyenBay
     public class DBConnection
     {
 
-        SqlConnection conn = new SqlConnection("Data Source=LAPTOP-GHTIJPNK;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
+        SqlConnection conn = new SqlConnection("Data Source=DESKTOP-SMH1K5T\\SOROW;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
 
-        SqlConnection connAd = new SqlConnection("Data Source=LAPTOP-GHTIJPNK;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
+        SqlConnection connAd = new SqlConnection("Data Source=DESKTOP-SMH1K5T\\SOROW;Initial Catalog=DoAnSapCuoi;Integrated Security=True");
 
         //Ham
         public DataTable TimChuyenBay(string noidi, string noiden, DateTime thoigian)
@@ -394,7 +395,7 @@ namespace QuanLyChuyenBay
             try
             {
                 conn.Open();
-                string sqlStr = String.Format("select * from V_XemMayBay");
+                string sqlStr = String.Format("select * from MayBay");
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -609,7 +610,8 @@ namespace QuanLyChuyenBay
             try
             {
                 conn.Open();
-                string sqlStr = String.Format("select * from ChuyenBay where CONVERT(DATE,ThoiGianKhoiHanh)='{0}'", ngay);
+                
+                string sqlStr = String.Format("SELECT tg.MaChuyenBay, tg.SoHieuMB, cb. *\r\nFROM dbo.ThamGia tg\r\nINNER JOIN dbo.ChuyenBay cb  ON cb.MaChuyenBay = tg.MaChuyenBay\r\nwhere CONVERT(DATE,ThoiGianKhoiHanh)='{0}'", ngay);
                 SqlDataAdapter adapter = new SqlDataAdapter(sqlStr, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
