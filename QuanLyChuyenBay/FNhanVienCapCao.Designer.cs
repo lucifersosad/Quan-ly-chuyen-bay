@@ -30,15 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FNhanVienCapCao));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnDoiHuyVe = new System.Windows.Forms.Button();
+            this.btnThemNV = new System.Windows.Forms.Button();
             this.btnDangXuat = new System.Windows.Forms.Button();
+            this.btnDoiHuyVe = new System.Windows.Forms.Button();
             this.btnNhapChuyenBay = new System.Windows.Forms.Button();
             this.btnNhapPhanCong = new System.Windows.Forms.Button();
             this.btnXemTienVe = new System.Windows.Forms.Button();
             this.btnXemPhieuChi = new System.Windows.Forms.Button();
             this.btnThongKeMayBay = new System.Windows.Forms.Button();
             this.panelHienThi = new System.Windows.Forms.Panel();
-            this.btnThemNV = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,9 +54,38 @@
             this.panel1.Controls.Add(this.btnXemPhieuChi);
             this.panel1.Controls.Add(this.btnThongKeMayBay);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1242, 79);
+            this.panel1.Size = new System.Drawing.Size(1104, 63);
             this.panel1.TabIndex = 4;
+            // 
+            // btnThemNV
+            // 
+            this.btnThemNV.BackColor = System.Drawing.Color.Transparent;
+            this.btnThemNV.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnThemNV.ForeColor = System.Drawing.Color.Black;
+            this.btnThemNV.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThemNV.ImageKey = "(none)";
+            this.btnThemNV.Location = new System.Drawing.Point(883, 2);
+            this.btnThemNV.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnThemNV.Name = "btnThemNV";
+            this.btnThemNV.Size = new System.Drawing.Size(89, 60);
+            this.btnThemNV.TabIndex = 12;
+            this.btnThemNV.Text = "Thêm NV";
+            this.btnThemNV.UseVisualStyleBackColor = false;
+            this.btnThemNV.Click += new System.EventHandler(this.btnThemNV_Click);
+            // 
+            // btnDangXuat
+            // 
+            this.btnDangXuat.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnDangXuat.Location = new System.Drawing.Point(986, 16);
+            this.btnDangXuat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDangXuat.Name = "btnDangXuat";
+            this.btnDangXuat.Size = new System.Drawing.Size(116, 33);
+            this.btnDangXuat.TabIndex = 6;
+            this.btnDangXuat.Text = "Đăng xuất";
+            this.btnDangXuat.UseVisualStyleBackColor = false;
+            this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
             // btnDoiHuyVe
             // 
@@ -65,24 +94,14 @@
             this.btnDoiHuyVe.ForeColor = System.Drawing.Color.Black;
             this.btnDoiHuyVe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDoiHuyVe.ImageKey = "(none)";
-            this.btnDoiHuyVe.Location = new System.Drawing.Point(815, 3);
+            this.btnDoiHuyVe.Location = new System.Drawing.Point(724, 2);
+            this.btnDoiHuyVe.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDoiHuyVe.Name = "btnDoiHuyVe";
-            this.btnDoiHuyVe.Size = new System.Drawing.Size(173, 75);
+            this.btnDoiHuyVe.Size = new System.Drawing.Size(154, 60);
             this.btnDoiHuyVe.TabIndex = 11;
             this.btnDoiHuyVe.Text = "Đổi/Hủy vé";
             this.btnDoiHuyVe.UseVisualStyleBackColor = false;
             this.btnDoiHuyVe.Click += new System.EventHandler(this.btnDoiHuyVe_Click);
-            // 
-            // btnDangXuat
-            // 
-            this.btnDangXuat.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnDangXuat.Location = new System.Drawing.Point(1109, 20);
-            this.btnDangXuat.Name = "btnDangXuat";
-            this.btnDangXuat.Size = new System.Drawing.Size(130, 41);
-            this.btnDangXuat.TabIndex = 6;
-            this.btnDangXuat.Text = "Đăng xuất";
-            this.btnDangXuat.UseVisualStyleBackColor = false;
-            this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
             // btnNhapChuyenBay
             // 
@@ -91,9 +110,10 @@
             this.btnNhapChuyenBay.ForeColor = System.Drawing.Color.Black;
             this.btnNhapChuyenBay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNhapChuyenBay.ImageKey = "(none)";
-            this.btnNhapChuyenBay.Location = new System.Drawing.Point(651, 3);
+            this.btnNhapChuyenBay.Location = new System.Drawing.Point(579, 2);
+            this.btnNhapChuyenBay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNhapChuyenBay.Name = "btnNhapChuyenBay";
-            this.btnNhapChuyenBay.Size = new System.Drawing.Size(173, 75);
+            this.btnNhapChuyenBay.Size = new System.Drawing.Size(154, 60);
             this.btnNhapChuyenBay.TabIndex = 10;
             this.btnNhapChuyenBay.Text = "Nhập chuyến bay";
             this.btnNhapChuyenBay.UseVisualStyleBackColor = false;
@@ -106,9 +126,10 @@
             this.btnNhapPhanCong.ForeColor = System.Drawing.Color.Black;
             this.btnNhapPhanCong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNhapPhanCong.ImageKey = "(none)";
-            this.btnNhapPhanCong.Location = new System.Drawing.Point(488, 3);
+            this.btnNhapPhanCong.Location = new System.Drawing.Point(434, 2);
+            this.btnNhapPhanCong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNhapPhanCong.Name = "btnNhapPhanCong";
-            this.btnNhapPhanCong.Size = new System.Drawing.Size(164, 75);
+            this.btnNhapPhanCong.Size = new System.Drawing.Size(146, 60);
             this.btnNhapPhanCong.TabIndex = 9;
             this.btnNhapPhanCong.Text = "Nhập bảng phân công";
             this.btnNhapPhanCong.UseVisualStyleBackColor = false;
@@ -121,9 +142,10 @@
             this.btnXemTienVe.ForeColor = System.Drawing.Color.Black;
             this.btnXemTienVe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXemTienVe.ImageKey = "(none)";
-            this.btnXemTienVe.Location = new System.Drawing.Point(326, 3);
+            this.btnXemTienVe.Location = new System.Drawing.Point(290, 2);
+            this.btnXemTienVe.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXemTienVe.Name = "btnXemTienVe";
-            this.btnXemTienVe.Size = new System.Drawing.Size(164, 75);
+            this.btnXemTienVe.Size = new System.Drawing.Size(146, 60);
             this.btnXemTienVe.TabIndex = 8;
             this.btnXemTienVe.Text = "Xem tiền vé bán được";
             this.btnXemTienVe.UseVisualStyleBackColor = false;
@@ -135,11 +157,12 @@
             this.btnXemPhieuChi.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnXemPhieuChi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXemPhieuChi.ImageKey = "(none)";
-            this.btnXemPhieuChi.Location = new System.Drawing.Point(163, 3);
+            this.btnXemPhieuChi.Location = new System.Drawing.Point(145, 2);
+            this.btnXemPhieuChi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXemPhieuChi.Name = "btnXemPhieuChi";
-            this.btnXemPhieuChi.Size = new System.Drawing.Size(164, 75);
+            this.btnXemPhieuChi.Size = new System.Drawing.Size(146, 60);
             this.btnXemPhieuChi.TabIndex = 7;
-            this.btnXemPhieuChi.Text = "Xem phiếu chi";
+            this.btnXemPhieuChi.Text = "Phiếu chi";
             this.btnXemPhieuChi.UseVisualStyleBackColor = false;
             this.btnXemPhieuChi.Click += new System.EventHandler(this.btnXemPhieuChi_Click);
             // 
@@ -149,9 +172,10 @@
             this.btnThongKeMayBay.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnThongKeMayBay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThongKeMayBay.ImageKey = "(none)";
-            this.btnThongKeMayBay.Location = new System.Drawing.Point(1, 3);
+            this.btnThongKeMayBay.Location = new System.Drawing.Point(1, 2);
+            this.btnThongKeMayBay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnThongKeMayBay.Name = "btnThongKeMayBay";
-            this.btnThongKeMayBay.Size = new System.Drawing.Size(164, 75);
+            this.btnThongKeMayBay.Size = new System.Drawing.Size(146, 60);
             this.btnThongKeMayBay.TabIndex = 0;
             this.btnThongKeMayBay.Text = "Các máy bay đang hoạt động";
             this.btnThongKeMayBay.UseVisualStyleBackColor = false;
@@ -163,33 +187,20 @@
             this.panelHienThi.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelHienThi.BackgroundImage")));
             this.panelHienThi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelHienThi.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelHienThi.Location = new System.Drawing.Point(0, 78);
+            this.panelHienThi.Location = new System.Drawing.Point(0, 62);
+            this.panelHienThi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelHienThi.Name = "panelHienThi";
-            this.panelHienThi.Size = new System.Drawing.Size(1244, 555);
+            this.panelHienThi.Size = new System.Drawing.Size(1106, 444);
             this.panelHienThi.TabIndex = 5;
-            // 
-            // btnThemNV
-            // 
-            this.btnThemNV.BackColor = System.Drawing.Color.Transparent;
-            this.btnThemNV.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnThemNV.ForeColor = System.Drawing.Color.Black;
-            this.btnThemNV.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThemNV.ImageKey = "(none)";
-            this.btnThemNV.Location = new System.Drawing.Point(993, 3);
-            this.btnThemNV.Name = "btnThemNV";
-            this.btnThemNV.Size = new System.Drawing.Size(100, 75);
-            this.btnThemNV.TabIndex = 12;
-            this.btnThemNV.Text = "Thêm NV";
-            this.btnThemNV.UseVisualStyleBackColor = false;
-            this.btnThemNV.Click += new System.EventHandler(this.btnThemNV_Click);
             // 
             // FNhanVienCapCao
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1244, 633);
+            this.ClientSize = new System.Drawing.Size(1106, 506);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelHienThi);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FNhanVienCapCao";
             this.Text = "FNhanVienCapCao";
             this.panel1.ResumeLayout(false);

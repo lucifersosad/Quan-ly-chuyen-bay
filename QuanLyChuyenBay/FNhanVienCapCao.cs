@@ -40,7 +40,7 @@ namespace QuanLyChuyenBay
         private void btnXemPhieuChi_Click(object sender, EventArgs e)
         {
 
-            MoForm(new FXemPhieuChi());
+            MoForm(new FPhieuChi());
         }
 
         private void btnXemTienVe_Click(object sender, EventArgs e)
